@@ -1,23 +1,17 @@
-/*
-    Name:       Arduino_Robot.ino
-    Created:	07-Aug-18 1:17:53 PM
-    Author:     HPELITEBOOK\C. Reurslag
-*/
-
-/* Name: Christiaan Reurslag
-* 22 july 2018
-* Attempt to create a class to control one dc motor with encoder
-* functions: keep constant speed, drive certain distance with a certain velocity
+/* Name:			Christiaan Reurslag
+*  Date:			7 August 2018
+*  Description:		Program to control a robot using an Arduino Uno
+*  Connections:		D2:
+					D3:...
+* Functionality:	Drive constant speed, drive certain distance ...
 */
 
 //#define NCHANNELS 3   //Number of channels for oscilloscope
-#include "Button.h"
-#define POTPIN 5  //Pin where potentiometer is connected to
-#define LOOPFREQ 10  //Frequency of main loop
+#include "Robot.h"
 
-volatile bool timer_go = false;  //variable to run into the timed loop
-
-								 //Class to handle a motor(DC motor and encoder)
+//volatile bool timer_go = false;  //variable to run into the timed loop
+/*
+//Class to handle a motor(DC motor and encoder)
 class Motor
 {
 private:
@@ -120,7 +114,8 @@ public:
 		return prevError;
 	}
 };
-
+*/
+/*
 class Button
 {
 private:
@@ -175,7 +170,8 @@ public:
 		}
 	}
 };
-
+*/
+/*
 class Oscilloscope
 {
 private:
@@ -264,70 +260,43 @@ public:
 		return sampling_on;
 	}
 };
+*/
+Robot robot;
 
-Motor motor;
-Oscilloscope oscilloscope;
+//Motor motor;
+//Oscilloscope oscilloscope;
 
 void setup() {
 	//Initialize motor
-	motor.setPins(4, 5, 3);
+	//*motor.setPins(4, 5, 3);
 	attachInterrupt(digitalPinToInterrupt(3), handleEncoderWrapper, CHANGE);
-
 	//Initialize oscilloscope
-	oscilloscope.initiate(7);//,1);
-
+	//*oscilloscope.initiate(7);//,1);
+	Serial.begin(115200);
 							 //Initialize timer1 
-	noInterrupts();           //Disable all interrupts
-	TCCR1A = 0;
-	TCCR1B = 0;
-	TCNT1 = 0;
-	//OCR1A = 16000000/8/LOOPFREQ;            //Compare match register 16MHz/8/100Hz (20000)
-	OCR1A = 16000000 / 256 / LOOPFREQ - 1;
-	TCCR1B |= (1 << WGM12);   //CTC mode
-	TCCR1B |= (1 << CS12);    //prescaler of 256
-	TIMSK1 |= (1 << OCIE1A);  //Enable timer compare interrupt
-	interrupts();             //Enable all interrupts
+	//noInterrupts();           //Disable all interrupts
+	//TCCR1A = 0;
+	//TCCR1B = 0;
+	//TCNT1 = 0;
+	//--OCR1A = 16000000/8/LOOPFREQ;            //Compare match register 16MHz/8/100Hz (20000)
+	//OCR1A = 16000000 / 256 / LOOPFREQ - 1;
+	//TCCR1B |= (1 << WGM12);   //CTC mode
+	//TCCR1B |= (1 << CS12);    //prescaler of 256
+	//TIMSK1 |= (1 << OCIE1A);  //Enable timer compare interrupt
+	//interrupts();             //Enable all interrupts
 }
 
 void loop() {
-	oscilloscope.checkButton();
-
-	if (timer_go)//Did the timer fire?
-	{
-		int motorSpeed = analogRead(POTPIN) / 25;
-		motor.driveConstantSpeed(motorSpeed);
-
-		if (oscilloscope.getSampling_on())
-		{
-			noInterrupts();
-			//for(int i = 0; i < NCHANNELS; i++)
-			//{
-			//SensorReading[0] = motorSpeed;
-			//SensorReading[1] = motor.mSpeed_act; //Sample value
-			//SensorReading[2] = motor.PWM_val;
-			//SensorReading[0] = int(motor.encoderTicks);
-
-			//SensorReading[3] = motor.prevError;
-			//SensorReading[i] = analogRead(i);
-			//SensorReading[i] = analogRead(i);
-			//}
-			oscilloscope.setSensorReading(0, motor.returnMSpeed_req());
-			oscilloscope.setSensorReading(1, motor.returnMSpeed_act());
-			oscilloscope.setSensorReading(2, abs(motor.returnPrevError()));
-			oscilloscope.setTime();
-			interrupts();
-			oscilloscope.sendData();
-		}
-		timer_go = false;
-	}
+	robot.run();
 }
 
+/*
 ISR(TIMER1_COMPA_vect)          //Timer compare interrupt service routine
 { //This function is called with a frequency of 10Hz
 	timer_go = true;
-}
+}*/
 
 void handleEncoderWrapper()
 {
-	motor.handleEncoder();
+	robot.handleEncoder();
 }

@@ -1,24 +1,24 @@
 // Button.h
 
-#ifndef _BUTTON_h
-#define _BUTTON_h
+#ifndef BUTTON_H
+#define BUTTON_H
+#include "Arduino.h"
 
-#if defined(ARDUINO) && ARDUINO >= 100
-	#include "arduino.h"
-#else
-	#include "WProgram.h"
-#endif
+#define TIMESHORTPRESS 5
+#define TIMELONGPRESS 1000
 
-class ButtonClass
+class Button
 {
- protected:
+private:
+	int pin;
+	bool state;
+	bool prevState;
+	unsigned long timePressed;
+public:
+	enum buttonResult { unchangedPressed, unchangedNotPressed, changedPressed, shortPressed, longPressed, debounce };
+	Button(int pin);
 
-
- public:
-	void init();
+	buttonResult input();
 };
 
-extern ButtonClass Button;
-
 #endif
-
