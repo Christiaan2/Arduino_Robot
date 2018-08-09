@@ -7,9 +7,13 @@
 Oscilloscope::Oscilloscope(int buttonPin)
 	: sampling_on(false), timeOffset_go(false), timeOffSet(0), button(buttonPin)
 {
-	//Serial.begin(BAUDRATE);
 	pinMode(LED, OUTPUT);
 	digitalWrite(LED, sampling_on);
+}
+
+void Oscilloscope::initializeSerial()
+{
+	Serial.begin(BAUDRATE);
 }
 
 void Oscilloscope::checkButton()

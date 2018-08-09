@@ -16,9 +16,6 @@ private:
 	bool mDirection;  //True is forwards, false is backwards
 	int speed_req;   //Desired speed of the motor
 	int PWM_val;  //PWM value 
-	//float Kp = 2.5;//0.7;//0.4
-	//float Kd = 1.5;//1
-	//int prevError = 0;
 public:
 	//enum for direction??
 	Motor(int directionPin, int enablePin, int encoderPin, float Kp, float Kd);

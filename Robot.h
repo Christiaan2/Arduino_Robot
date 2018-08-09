@@ -20,6 +20,7 @@ private:
 public:
 	Robot();
 	void run();
+	void initialize();
 	void handleEncoder();
 };
 

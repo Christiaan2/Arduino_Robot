@@ -20,17 +20,6 @@ void Robot::run()
 		if (oscilloscope.getSampling_on())
 		{
 			noInterrupts();
-			//for(int i = 0; i < NCHANNELS; i++)
-			//{
-			//SensorReading[0] = motorSpeed;
-			//SensorReading[1] = motor.mSpeed_act; //Sample value
-			//SensorReading[2] = motor.PWM_val;
-			//SensorReading[0] = int(motor.encoderTicks);
-
-			//SensorReading[3] = motor.prevError;
-			//SensorReading[i] = analogRead(i);
-			//SensorReading[i] = analogRead(i);
-			//}
 			oscilloscope.setSensorReading(0, motor.getSpeed_req());
 			oscilloscope.setSensorReading(1, motor.getSpeed());
 			oscilloscope.setSensorReading(2, motor.getPWM_val());
@@ -39,6 +28,11 @@ void Robot::run()
 			oscilloscope.sendData();
 		}
 	}
+}
+
+void Robot::initialize()
+{
+	oscilloscope.initializeSerial();
 }
 
 void Robot::handleEncoder()

@@ -24,6 +24,8 @@ private:
 public:
 	Oscilloscope(int buttonPin);
 	
+	void initializeSerial();
+
 	void checkButton();
 	
 	void setTime();
