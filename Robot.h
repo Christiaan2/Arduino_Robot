@@ -14,14 +14,18 @@ class Robot
 {
 private:
 	Timer timer;
-	Motor motor;
+	Motor motorL;
+	Motor motorR;
 	Oscilloscope oscilloscope;
+
+	Motor* motorArray[2]; //TEMPERARY
 
 public:
 	Robot();
 	void run();
 	void initialize();
-	void handleEncoder();
+	Motor* getPointerToMotorL();
+	Motor* getPointerToMotorR();
 };
 
 #endif

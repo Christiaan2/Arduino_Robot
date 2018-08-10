@@ -24,6 +24,8 @@ public:
 
 	void handleEncoder();
 
+	Motor* getPointer();
+
 	void setPWM_val(int PWM_val);
 
 	void driveConstantSpeed(int speed_req);

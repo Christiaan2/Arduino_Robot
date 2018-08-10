@@ -10,6 +10,7 @@ Motor::Motor(int directionPin, int enablePin, int encoderPin, float Kp, float Kd
 	pinMode(this->directionPin, OUTPUT);
 	pinMode(this->enablePin, OUTPUT);
 	analogWrite(this->enablePin, PWM_val);
+	setDirection(mDirection);
 }
 
 void Motor::setDirection(bool direction)
@@ -21,6 +22,11 @@ void Motor::setDirection(bool direction)
 void Motor::handleEncoder()
 {
 	encoder.updateEncoder(mDirection);
+}
+
+Motor* Motor::getPointer()
+{
+	return this;
 }
 
 void Motor::setPWM_val(int PWM_val)

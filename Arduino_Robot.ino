@@ -11,14 +11,22 @@ Robot robot;
 
 void setup() {
 	robot.initialize();
-	attachInterrupt(digitalPinToInterrupt(3), handleEncoderWrapper, CHANGE);
+	attachInterrupt(digitalPinToInterrupt(2), handleLeftEncoderWrapper, CHANGE);
+	attachInterrupt(digitalPinToInterrupt(3), handleRightEncoderWrapper, CHANGE);
 }
 
 void loop() {
 	robot.run();
 }
 
-void handleEncoderWrapper()
+void handleLeftEncoderWrapper()
 {
-	robot.handleEncoder();
+	static Motor* _MotorL = robot.getPointerToMotorL();
+	_MotorL->handleEncoder();
+}
+
+void handleRightEncoderWrapper()
+{
+	static Motor* _MotorR = robot.getPointerToMotorR();
+	_MotorR->handleEncoder();
 }
