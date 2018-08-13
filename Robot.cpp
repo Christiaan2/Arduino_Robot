@@ -7,7 +7,6 @@
 Robot::Robot()
 	:timer(1000/LOOPFREQ), oscilloscope(8)
 {
-	propulsion.setForwards(6);
 }
 
 void Robot::run()

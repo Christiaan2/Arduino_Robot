@@ -39,11 +39,6 @@ public:
 	Encoder* getPointerToEncoder();
 
 	int getPWM_val();
-	
-	//void driveDistance(int distance, int mSpeed)
-	//{
-		//Here was I
-	//}
 };
 
 #endif
