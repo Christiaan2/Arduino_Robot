@@ -16,6 +16,10 @@ public:
 	void updateEncoder(bool direction);
 	int calcSpeed();
 	int getSpeed();
+	void reset();
+	long getEncoderTicks();
+	long getPrevEncoderTicks();
+	Encoder* getPointer();
 };
 #endif
 

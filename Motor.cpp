@@ -19,6 +19,11 @@ void Motor::setDirection(bool direction)
 	digitalWrite(directionPin, mDirection);
 }
 
+void Motor::setSpeed(int speed)
+{
+	this->speed = speed;
+}
+
 void Motor::handleEncoder()
 {
 	encoder.updateEncoder(mDirection);
@@ -31,24 +36,29 @@ Motor* Motor::getPointer()
 
 void Motor::setPWM_val(int PWM_val)
 {
-	this->PWM_val = PWM_val;
-	analogWrite(enablePin, PWM_val);
+	this->PWM_val = constrain(PWM_val,0,255);
+	analogWrite(enablePin, this->PWM_val);
 }
 
-void Motor::driveConstantSpeed(int speed_req)
+void Motor::driveConstantSpeed(int speed)
 {
-	this->speed_req = speed_req;
-	setPWM_val(pid.calcPidTerm(speed_req, encoder.calcSpeed()));
+	this->speed = speed;
+	setPWM_val(pid.calcPidTerm(speed, encoder.calcSpeed()));
 }
 
-int Motor::getSpeed_req()
+int Motor::calcPWM_val()
 {
-	return speed_req;
+	return pid.calcPidTerm(speed, encoder.calcSpeed());
 }
 
 int Motor::getSpeed()
 {
-	return encoder.getSpeed();
+	return speed;
+}
+
+Encoder* Motor::getPointerToEncoder()
+{
+	return encoder.getPointer();
 }
 
 int Motor::getPWM_val()

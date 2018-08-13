@@ -5,11 +5,9 @@
 #include "Robot.h"
 
 Robot::Robot()
-	:timer(1000/LOOPFREQ), motorL(4,5,2,2.5,1.5), motorR(7,6,3,2.5,1.5), oscilloscope(8)
+	:timer(1000/LOOPFREQ), oscilloscope(8)
 {
-	pinMode(9, INPUT);	//TEMPERARY
-	motorArray[0] = &motorL;
-	motorArray[1] = &motorR;
+	propulsion.setForwards(6);
 }
 
 void Robot::run()
@@ -18,29 +16,27 @@ void Robot::run()
 
 	if (timer.fire())
 	{
-		int motorNumber; //TEMPERARY
-		int motorSpeed = analogRead(POTPIN) / 25;
+		int motorSpeed = analogRead(POTPIN) / 45;
 
-		if (digitalRead(9) == HIGH) //TEMPERARY
+		if (motorSpeed <= 1)
 		{
-			motorNumber = 0;
-		}
-		else
-		{
-			motorNumber = 1;
-		}
-		
-		for (int i = 0; i < 2; i++)
-		{
-			motorArray[i]->driveConstantSpeed(motorSpeed);
+			propulsion.getPointerToMotorL()->getPointerToEncoder()->reset();
+			propulsion.getPointerToMotorR()->getPointerToEncoder()->reset();
 		}
 
+		propulsion.setForwards(motorSpeed);
+		propulsion.drive();
 		if (oscilloscope.getSampling_on())
 		{
 			noInterrupts();
-			oscilloscope.setSensorReading(0, motorArray[motorNumber]->getSpeed_req());
-			oscilloscope.setSensorReading(1, motorArray[motorNumber]->getSpeed());
-			oscilloscope.setSensorReading(2, motorArray[motorNumber]->getPWM_val());
+			//oscilloscope.setSensorReading(0, int(propulsion.getPointerToMotorL()->getPointerToEncoder()->getEncoderTicks()));
+			//oscilloscope.setSensorReading(1, int(propulsion.getPointerToMotorR()->getPointerToEncoder()->getEncoderTicks()));
+			
+			oscilloscope.setSensorReading(0, int(propulsion.getPointerToMotorL()->getPWM_val()));
+			oscilloscope.setSensorReading(1, int(propulsion.getPointerToMotorR()->getPWM_val()));
+			//oscilloscope.setSensorReading(0, motorArray[motorNumber]->getSpeed_req());
+			//oscilloscope.setSensorReading(1, motorArray[motorNumber]->getSpeed());
+			//oscilloscope.setSensorReading(2, motorArray[motorNumber]->getPWM_val());
 			oscilloscope.setTime();
 			interrupts();
 			oscilloscope.sendData();
@@ -55,10 +51,10 @@ void Robot::initialize()
 
 Motor* Robot::getPointerToMotorL()
 {
-	return motorL.getPointer();
+	return propulsion.getPointerToMotorL();
 }
 
 Motor* Robot::getPointerToMotorR()
 {
-	return motorR.getPointer();
+	return propulsion.getPointerToMotorR();
 }

@@ -26,3 +26,24 @@ int Encoder::getSpeed()
 {
 	return speed;
 }
+
+Encoder* Encoder::getPointer()
+{
+	return this;
+}
+
+void Encoder::reset()
+{
+	encoderTicks = 0;
+	prevEncoderTicks = 0;
+}
+
+long Encoder::getEncoderTicks()
+{
+	return encoderTicks;
+}
+
+long Encoder::getPrevEncoderTicks()
+{
+	return prevEncoderTicks;
+}

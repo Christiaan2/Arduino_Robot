@@ -5,6 +5,7 @@
 					D3:...
 * Functionality:	Drive constant speed, drive certain distance ...
 */
+#include "Propulsion.h"
 #include "Robot.h"
 
 Robot robot;

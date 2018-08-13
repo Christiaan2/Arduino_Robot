@@ -112,6 +112,7 @@
     <ClInclude Include="Motor.h" />
     <ClInclude Include="Oscilloscope.h" />
     <ClInclude Include="Pid.h" />
+    <ClInclude Include="Propulsion.h" />
     <ClInclude Include="Robot.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="__vm\.Arduino_Robot.vsarduino.h" />
@@ -122,6 +123,7 @@
     <ClCompile Include="Motor.cpp" />
     <ClCompile Include="Oscilloscope.cpp" />
     <ClCompile Include="Pid.cpp" />
+    <ClCompile Include="Propulsion.cpp" />
     <ClCompile Include="Robot.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
