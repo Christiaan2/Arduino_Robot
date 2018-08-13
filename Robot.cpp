@@ -29,8 +29,11 @@ void Robot::run()
 		{
 			motorNumber = 1;
 		}
-
-		motorArray[motorNumber]->driveConstantSpeed(motorSpeed);
+		
+		for (int i = 0; i < 2; i++)
+		{
+			motorArray[i]->driveConstantSpeed(motorSpeed);
+		}
 
 		if (oscilloscope.getSampling_on())
 		{
