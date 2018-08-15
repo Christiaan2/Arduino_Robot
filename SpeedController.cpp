@@ -2,14 +2,14 @@
 // 
 // 
 
-#include "Pid.h"
+#include "SpeedController.h"
 
-Pid::Pid(float Kp, float Kd)
+SpeedController::SpeedController(float Kp, float Kd)
 	: Kp(Kp), Kd(Kd), prevError(0), prevOutput(0)
 {
 }
 
-int Pid::calcPidTerm(int setPoint, int curValue)
+int SpeedController::calcPidTerm(int setPoint, int curValue)
 {
 	if (setPoint <= 1)
 	{

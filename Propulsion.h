@@ -5,16 +5,16 @@
 #include "Arduino.h"
 #include "Motor.h"
 
-#define KP_CONST_SPEED 6
-#define KD_CONST_SPEED 5
-#define KI_CONST_SPEED 1
+#define KP 6
+#define KD 5
+#define KI 1
 
 class Propulsion
 {
 private:
 	Motor motorL;
 	Motor motorR;
-	int SumError;
+	int sumError;
 public:
 	enum driveOptions { Forwards, Backwards };
 	Propulsion();

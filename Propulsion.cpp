@@ -5,7 +5,7 @@
 #include "Propulsion.h"
 
 Propulsion::Propulsion()
-	:motorL(4, 5, 2, 2.5, 1.5), motorR(7, 6, 3, 2.5, 1.5), SumError(0)
+	:motorL(4, 5, 2, 2.5, 1.5), motorR(7, 6, 3, 2.5, 1.5), sumError(0)
 {
 	motorL.setDistance(548);
 	motorR.setDistance(548);
@@ -19,8 +19,6 @@ void Propulsion::setForwards(int speed)
 	motorR.setSpeed(speed);
 	motorL.setInitialSpeed(speed);
 	motorR.setInitialSpeed(speed);
-	//motorL.getPointerToEncoder()->reset();
-	//motorR.getPointerToEncoder()->reset();
 }
 
 void Propulsion::setBackwards(int speed)
@@ -45,8 +43,6 @@ bool Propulsion::drive()
 		}
 		else
 		{
-			//motorL.setSpeed(max(2,((motorL.getDistance() - int(motorL.getPointerToEncoder()->getEncoderTicks()))
-			//	* motorL.getInitialSpeed()) / (motorL.getInitialSpeed() * 15)));
 			motorL.setSpeed(2);
 		}
 	}
@@ -61,8 +57,6 @@ bool Propulsion::drive()
 		}
 		else
 		{
-			//motorR.setSpeed(max(2,((motorR.getDistance() - int(motorR.getPointerToEncoder()->getEncoderTicks()))
-			//	* motorR.getInitialSpeed()) / (motorR.getInitialSpeed() * 15)));
 			motorR.setSpeed(2);
 		}
 	}
@@ -72,41 +66,17 @@ bool Propulsion::drive()
 	
 	int error = int(motorL.getPointerToEncoder()->getEncoderTicks() -
 		motorR.getPointerToEncoder()->getEncoderTicks());
-	SumError = SumError + error;
+	sumError = sumError + error;
 	int prevError = int(motorL.getPointerToEncoder()->getPrevEncoderTicks() -
 		motorR.getPointerToEncoder()->getPrevEncoderTicks());
-	int boost = (KP_CONST_SPEED * error) + (KD_CONST_SPEED * (error - prevError))
-		+ (KI_CONST_SPEED * SumError);
+	int boost = (KP * error) + (KD * (error - prevError))
+		+ (KI * sumError);
 	PWML = PWML - boost;
 	PWMR = PWMR + boost;
-
-	
-	//if (motorL.getDistance() - int(motorL.getPointerToEncoder()->getEncoderTicks()) <= 0)
-	//{
-	//	PWML = 0;
-	//	result = false;
-	//}
-	//else
-	//{
-	//	int errorL = motorL.getDistance() - int(motorL.getPointerToEncoder()->getEncoderTicks());
-	//	PWML = min(PWML, 3*errorL + 95);
-	//}
-	
-	//if (motorR.getDistance() - int(motorR.getPointerToEncoder()->getEncoderTicks()) <= 0)
-	//{
-	//	PWMR = 0;
-	//	result = false;//Both engines should return false
- 	//}
-	//else
-	//{
-	//	int errorR = motorR.getDistance() - int(motorR.getPointerToEncoder()->getEncoderTicks());
-	//	PWMR = min(PWMR, 3*errorR + 95);
-	//}
 	
 	motorL.setPWM_val(PWML);
 	motorR.setPWM_val(PWMR);
 	return resultL || resultR;
-	//Not satisfied with this function yet. When speed one engine is lower otherone also decreases!!!!!
 }
 
 Motor* Propulsion::getPointerToMotorL()
@@ -121,5 +91,5 @@ Motor* Propulsion::getPointerToMotorR()
 
 void Propulsion::resetSumError()
 {
-	SumError = 0;
+	sumError = 0;
 }

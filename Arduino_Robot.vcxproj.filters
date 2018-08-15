@@ -36,13 +36,13 @@
     <ClInclude Include="Encoder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Pid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Oscilloscope.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Propulsion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpeedController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -62,13 +62,13 @@
     <ClCompile Include="Encoder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Pid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Oscilloscope.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Propulsion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SpeedController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

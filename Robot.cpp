@@ -30,9 +30,6 @@ void Robot::run()
 		if (oscilloscope.getSampling_on())
 		{
 			noInterrupts();
-			//oscilloscope.setSensorReading(0, int(propulsion.getPointerToMotorL()->getPointerToEncoder()->getEncoderTicks()));
-			//oscilloscope.setSensorReading(1, int(propulsion.getPointerToMotorR()->getPointerToEncoder()->getEncoderTicks()));
-			
 			oscilloscope.setSensorReading(0, int(propulsion.getPointerToMotorL()->getPointerToEncoder()->getEncoderTicks()));
 			oscilloscope.setSensorReading(1, int(propulsion.getPointerToMotorR()->getPointerToEncoder()->getEncoderTicks()));
 			oscilloscope.setSensorReading(2, propulsion.getPointerToMotorL()->getPWM_val());
@@ -40,9 +37,6 @@ void Robot::run()
 			oscilloscope.setSensorReading(4, propulsion.getPointerToMotorL()->getSpeed());
 			oscilloscope.setSensorReading(5, propulsion.getPointerToMotorL()->getPointerToEncoder()->getSpeed());
 			oscilloscope.setSensorReading(6, propulsion.getPointerToMotorR()->getPointerToEncoder()->getSpeed());
-			//oscilloscope.setSensorReading(0, motorArray[motorNumber]->getSpeed_req());
-			//oscilloscope.setSensorReading(1, motorArray[motorNumber]->getSpeed());
-			//oscilloscope.setSensorReading(2, motorArray[motorNumber]->getPWM_val());
 			oscilloscope.setTime();
 			interrupts();
 			oscilloscope.sendData();

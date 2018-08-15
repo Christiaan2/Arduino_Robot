@@ -4,7 +4,7 @@
 #define MOTOR_H
 #include "Arduino.h"
 #include "Encoder.h"
-#include "Pid.h"
+#include "SpeedController.h"
 
 class Motor
 {
@@ -12,7 +12,7 @@ private:
 	int directionPin;
 	int enablePin;
 	Encoder encoder;
-	Pid pid;
+	SpeedController speedController;
 	bool mDirection;  //True is forwards, false is backwards
 	int speed;   //Desired speed of the motor
 	int initialSpeed;
