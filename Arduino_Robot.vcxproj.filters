@@ -45,6 +45,9 @@
     <ClInclude Include="SpeedController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionAvoidance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp">
@@ -69,6 +72,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SpeedController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionAvoidance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

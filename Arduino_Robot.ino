@@ -11,6 +11,7 @@
 					A5: Potentiometer to set speed
 * Functionality:	Drive constant speed, drive certain distance ...
 */
+#include "CollisionAvoidance.h"
 #include "Propulsion.h"
 #include "Robot.h"
 

@@ -7,11 +7,9 @@
 Propulsion::Propulsion()
 	:motorL(4, 5, 2, 2.5, 1.5), motorR(7, 6, 3, 2.5, 1.5), sumError(0)
 {
-	motorL.setDistance(548);
-	motorR.setDistance(548);
 }
 
-void Propulsion::setForwards(int speed)
+void Propulsion::setForwards(int speed, int distance)
 {
 	motorL.setDirection(true);
 	motorR.setDirection(true);
@@ -19,9 +17,11 @@ void Propulsion::setForwards(int speed)
 	motorR.setSpeed(speed);
 	motorL.setInitialSpeed(speed);
 	motorR.setInitialSpeed(speed);
+	motorL.setDistance(distance); // distance = 0 corresponds to infinity, distance in #pulses
+	motorR.setDistance(distance);
 }
 
-void Propulsion::setBackwards(int speed)
+void Propulsion::setBackwards(int speed, int distance)
 {
 	motorL.setDirection(false);
 	motorR.setDirection(false);
@@ -29,6 +29,8 @@ void Propulsion::setBackwards(int speed)
 	motorR.setSpeed(speed);
 	motorL.setInitialSpeed(speed);
 	motorR.setInitialSpeed(speed);
+	motorL.setDistance(distance); // distance = 0 corresponds to infinity, distance in #pulses
+	motorR.setDistance(distance);
 }
 
 bool Propulsion::drive()
@@ -36,7 +38,7 @@ bool Propulsion::drive()
 	bool resultL = true;
 	bool resultR = true;
 	if (motorL.getDistance() - int(motorL.getPointerToEncoder()->getEncoderTicks()) <=
-		min(140, motorL.getInitialSpeed() * 15))
+		min(140, motorL.getInitialSpeed() * 15) && motorL.getDistance != 0)
 	{
 		if (motorL.getDistance() - int(motorL.getPointerToEncoder()->getEncoderTicks()) <= 0)
 		{
@@ -50,7 +52,7 @@ bool Propulsion::drive()
 	}
 
 	if (motorR.getDistance() - int(motorR.getPointerToEncoder()->getEncoderTicks()) <=
-		min(140, motorR.getInitialSpeed() * 15))
+		min(140, motorR.getInitialSpeed() * 15) && motorR.getDistance != 0)
 	{
 		if (motorR.getDistance() - int(motorR.getPointerToEncoder()->getEncoderTicks()) <= 0)
 		{
@@ -81,7 +83,7 @@ bool Propulsion::drive()
 	return resultL || resultR;
 }
 
-void Propulsion::setRotation(int speed)
+void Propulsion::setRotation(int speed, int distance)
 {
 	motorL.setDirection(true);
 	motorR.setDirection(false);
@@ -89,6 +91,8 @@ void Propulsion::setRotation(int speed)
 	motorR.setSpeed(speed);
 	motorL.setInitialSpeed(speed);
 	motorR.setInitialSpeed(speed);
+	motorL.setDistance(distance); // distance = 0 corresponds to infinity, distance in #pulses
+	motorR.setDistance(distance);
 }
 
 Motor* Propulsion::getPointerToMotorL()
@@ -104,4 +108,17 @@ Motor* Propulsion::getPointerToMotorR()
 void Propulsion::resetSumError()
 {
 	sumError = 0;
+}
+
+void Propulsion::reset()
+{
+	getPointerToMotorL()->getPointerToEncoder()->reset();
+	getPointerToMotorR()->getPointerToEncoder()->reset();
+	sumError = 0;
+}
+
+void Propulsion::stopMotors()
+{
+	motorL.setPWM_val(0);
+	motorR.setPWM_val(0);
 }

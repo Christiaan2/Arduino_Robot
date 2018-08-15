@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
+    <ClInclude Include="CollisionAvoidance.h" />
     <ClInclude Include="Encoder.h" />
     <ClInclude Include="Motor.h" />
     <ClInclude Include="Oscilloscope.h" />
@@ -119,6 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="CollisionAvoidance.cpp" />
     <ClCompile Include="Encoder.cpp" />
     <ClCompile Include="Motor.cpp" />
     <ClCompile Include="Oscilloscope.cpp" />

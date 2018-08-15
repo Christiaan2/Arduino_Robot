@@ -19,12 +19,14 @@ public:
 	enum driveOptions { Forwards, Backwards };
 	Propulsion();
 	bool drive();
-	void setForwards(int speed);
-	void setBackwards(int speed);
-	void setRotation(int speed);
+	void setForwards(int speed, int distance);
+	void setBackwards(int speed, int distance);
+	void setRotation(int speed, int distance);
 	Motor* getPointerToMotorL();
 	Motor* getPointerToMotorR();
 	void resetSumError();
+	void reset();
+	void stopMotors();
 };
 
 #endif

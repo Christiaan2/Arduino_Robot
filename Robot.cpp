@@ -11,7 +11,6 @@ Robot::Robot()
 
 void Robot::run()
 {
-	static int i = 0;
 	oscilloscope.checkButton();
 
 	if (timer.fire())
@@ -25,35 +24,35 @@ void Robot::run()
 			propulsion.resetSumError();
 		}
 
-		if (i == 0)
-		{
-			propulsion.setForwards(motorSpeed);
-		}
-		else if(i == 1)
-		{
-			propulsion.setBackwards(motorSpeed);
-		}
-		else if (i == 2)
-		{
-			propulsion.setRotation(motorSpeed);
-		}
-		else
-		{
-			propulsion.getPointerToMotorL()->setPWM_val(0);
-			propulsion.getPointerToMotorR()->setPWM_val(0);
-			while (true)
-			{
-			}
-		}
+		//if (i == 0)
+		//{
+		//	propulsion.setForwards(motorSpeed);
+		//}
+		//else if(i == 1)
+		//{
+		//	propulsion.setBackwards(motorSpeed);
+		//}
+		//else if (i == 2)
+		//{
+		//	propulsion.setRotation(motorSpeed);
+		//}
+		//else
+		//{
+		//	propulsion.getPointerToMotorL()->setPWM_val(0);
+		//	propulsion.getPointerToMotorR()->setPWM_val(0);
+		//	while (true)
+		//	{
+		//	}
+		//}
 	
-		if (!propulsion.drive())
-		{
-			i++;
-			propulsion.getPointerToMotorL()->getPointerToEncoder()->reset();
-			propulsion.getPointerToMotorR()->getPointerToEncoder()->reset();
-			propulsion.resetSumError();
-			delay(500);
-		}
+		//if (!propulsion.drive())
+		//{
+		//	i++;
+		//	propulsion.getPointerToMotorL()->getPointerToEncoder()->reset();
+		//	propulsion.getPointerToMotorR()->getPointerToEncoder()->reset();
+		//	propulsion.resetSumError();
+		//	delay(500);
+		//}
 
 		if (oscilloscope.getSampling_on())
 		{
