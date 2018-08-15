@@ -29,11 +29,6 @@ void Motor::setDistance(int distance)
 	this->distance = distance;
 }
 
-void Motor::handleEncoder()
-{
-	encoder.updateEncoder(mDirection);
-}
-
 Motor* Motor::getPointer()
 {
 	return this;

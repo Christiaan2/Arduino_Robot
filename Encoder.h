@@ -13,7 +13,7 @@ private:
 	int speed;
 public:
 	Encoder(int encoderPin);
-	void updateEncoder(bool direction);
+	void updateEncoder();
 	int calcSpeed();
 	int getSpeed();
 	void reset();

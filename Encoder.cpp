@@ -10,9 +10,9 @@ Encoder::Encoder(int encoderPin)
 	pinMode(encoderPin, INPUT);
 }
 
-void Encoder::updateEncoder(bool direction)
+void Encoder::updateEncoder()
 {
-	direction ? encoderTicks++ : encoderTicks--;
+	encoderTicks++;
 }
 
 int Encoder::calcSpeed()

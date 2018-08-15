@@ -27,6 +27,8 @@ void Propulsion::setBackwards(int speed)
 	motorR.setDirection(false);
 	motorL.setSpeed(speed);
 	motorR.setSpeed(speed);
+	motorL.setInitialSpeed(speed);
+	motorR.setInitialSpeed(speed);
 }
 
 bool Propulsion::drive()
@@ -77,6 +79,16 @@ bool Propulsion::drive()
 	motorL.setPWM_val(PWML);
 	motorR.setPWM_val(PWMR);
 	return resultL || resultR;
+}
+
+void Propulsion::setRotation(int speed)
+{
+	motorL.setDirection(true);
+	motorR.setDirection(false);
+	motorL.setSpeed(speed);
+	motorR.setSpeed(speed);
+	motorL.setInitialSpeed(speed);
+	motorR.setInitialSpeed(speed);
 }
 
 Motor* Propulsion::getPointerToMotorL()

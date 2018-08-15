@@ -28,12 +28,12 @@ void loop() {
 
 void handleLeftEncoderWrapper()
 {
-	static Motor* _MotorL = robot.getPointerToMotorL();
-	_MotorL->handleEncoder();
+	static Encoder* _EncoderL = robot.getPointerToMotorL()->getPointerToEncoder();
+	_EncoderL->updateEncoder();
 }
 
 void handleRightEncoderWrapper()
 {
-	static Motor* _MotorR = robot.getPointerToMotorR();
-	_MotorR->handleEncoder();
+	static Encoder* _EncoderR = robot.getPointerToMotorR()->getPointerToEncoder();
+	_EncoderR->updateEncoder();
 }
