@@ -5,7 +5,7 @@
 #include "Arduino.h"
 #include "Button.h"
 
-#define NCHANNELS 2
+#define NCHANNELS 7
 #define BAUDRATE 115200
 #define LED 13
 
@@ -17,7 +17,7 @@ private:
 	unsigned long Time;
 	unsigned long timeOffSet; //Time offset (Time = millis() - timeOffset)
 	Button button;
-	int SensorReading[3];
+	int SensorReading[NCHANNELS];
 	const byte stop_message[2] = { 255, 253 };
 	const byte pause_message[2] = { 255, 254 };
 	const byte start_message[2] = { 255, 255 };

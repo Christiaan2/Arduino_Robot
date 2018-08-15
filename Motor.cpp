@@ -24,6 +24,11 @@ void Motor::setSpeed(int speed)
 	this->speed = speed;
 }
 
+void Motor::setDistance(int distance)
+{
+	this->distance = distance;
+}
+
 void Motor::handleEncoder()
 {
 	encoder.updateEncoder(mDirection);
@@ -64,4 +69,19 @@ Encoder* Motor::getPointerToEncoder()
 int Motor::getPWM_val()
 {
 	return PWM_val;
+}
+
+int Motor::getDistance()
+{
+	return distance;
+}
+
+void Motor::setInitialSpeed(int initialSpeed)
+{
+	this->initialSpeed = initialSpeed;
+}
+
+int Motor::getInitialSpeed()
+{
+	return initialSpeed;
 }

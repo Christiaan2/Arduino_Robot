@@ -15,6 +15,8 @@ private:
 	Pid pid;
 	bool mDirection;  //True is forwards, false is backwards
 	int speed;   //Desired speed of the motor
+	int initialSpeed;
+	int distance;
 	int PWM_val;  //PWM value 
 public:
 	//enum for direction??
@@ -23,6 +25,12 @@ public:
 	void setDirection(bool direction); //true is forwards, false is backwards
 
 	void setSpeed(int speed);
+
+	void setInitialSpeed(int initialSpeed);
+
+	int getInitialSpeed();
+
+	void setDistance(int distance);
 
 	void handleEncoder();
 
@@ -39,6 +47,8 @@ public:
 	Encoder* getPointerToEncoder();
 
 	int getPWM_val();
+
+	int getDistance();
 };
 
 #endif
