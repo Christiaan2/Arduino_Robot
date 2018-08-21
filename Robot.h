@@ -9,12 +9,16 @@
 #include "CollisionAvoidance.h"
 
 #define POTPIN 5  //Pin where potentiometer is connected to
-#define LOOPFREQ 10  //Frequency of main loop
+#define DRIVEFREQ 10  //Frequency of main loop
+#define SCOOPFREQ 100
+#define ACSFREQ 250
 
 class Robot
 {
 private:
-	Timer timer;
+	Timer timerDrive;
+	Timer timerScoop;
+	Timer timerACS;
 	Oscilloscope oscilloscope;
 	Propulsion propulsion;
 	CollisionAvoidance collisionAvoidance;

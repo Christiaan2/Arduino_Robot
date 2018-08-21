@@ -19,8 +19,8 @@ public:
 	enum driveOptions { Forwards, Backwards };
 	Propulsion();
 	bool drive();
-	void setForwards(int speed, int distance);
-	void setBackwards(int speed, int distance);
+	void setForwards(int speed, int distance = 0);
+	void setBackwards(int speed, int distance = 0);
 	void setLeftRotation(int speed, int distance);
 	void setRightRotation(int speed, int distance);
 	Motor* getPointerToMotorL();

@@ -9,7 +9,7 @@ Propulsion::Propulsion()
 {
 }
 
-void Propulsion::setForwards(int speed, int distance)
+void Propulsion::setForwards(int speed, int distance = 0)
 {
 	motorL.setDirection(true);
 	motorR.setDirection(true);
@@ -21,7 +21,7 @@ void Propulsion::setForwards(int speed, int distance)
 	motorR.setDistance(distance);
 }
 
-void Propulsion::setBackwards(int speed, int distance)
+void Propulsion::setBackwards(int speed, int distance = 0)
 {
 	motorL.setDirection(false);
 	motorR.setDirection(false);
