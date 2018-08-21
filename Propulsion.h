@@ -21,7 +21,8 @@ public:
 	bool drive();
 	void setForwards(int speed, int distance);
 	void setBackwards(int speed, int distance);
-	void setRotation(int speed, int distance);
+	void setLeftRotation(int speed, int distance);
+	void setRightRotation(int speed, int distance);
 	Motor* getPointerToMotorL();
 	Motor* getPointerToMotorR();
 	void resetSumError();

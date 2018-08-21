@@ -36,6 +36,7 @@ void Encoder::reset()
 {
 	encoderTicks = 0;
 	prevEncoderTicks = 0;
+	//Maybe reset also the speed
 }
 
 long Encoder::getEncoderTicks()

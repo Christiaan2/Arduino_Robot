@@ -14,6 +14,7 @@ private:
 public:
 	SpeedController(float Kp, float Kd);
 	int calcPidTerm(int setPoint, int curValue);
+	void reset();
 };
 
 

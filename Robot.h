@@ -6,6 +6,7 @@
 #include "Timer.h"
 #include "Propulsion.h"
 #include "Oscilloscope.h"
+#include "CollisionAvoidance.h"
 
 #define POTPIN 5  //Pin where potentiometer is connected to
 #define LOOPFREQ 10  //Frequency of main loop
@@ -16,7 +17,8 @@ private:
 	Timer timer;
 	Oscilloscope oscilloscope;
 	Propulsion propulsion;
-
+	CollisionAvoidance collisionAvoidance;
+	int progress;
 public:
 	Robot();
 	void run();

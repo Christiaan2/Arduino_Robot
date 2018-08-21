@@ -4,23 +4,21 @@
 
 #include "CollisionAvoidance.h"
 
-CollisionAvoidance::CollisionAvoidance(int servoPin, int trigPin, int echoPin, int maxDistance)
-	: sonar(trigPin,echoPin,maxDistance), flagVeryClose(false), flagClose(false)
-{ //trigPin and echoPin can be the same
-	servo.attach(servoPin);
-	servo.write(90);
+CollisionAvoidance::CollisionAvoidance(int trigPin, int echoPin, int maxDistance)
+	: sonar(trigPin, echoPin, maxDistance), flagVeryClose(false), flagClose(false)
+{//trigPin and echoPin can be the same
 }
 
 void CollisionAvoidance::run(Propulsion* propulsion, int speed)
 {
-	static int distanceL;
-	static int distanceR;
-	if (flagVeryClose)
+	if (flagVeryClose || flagClose)
 	{
 		static int i = 0;
+		static int distanceL;
+		static int distanceR;
 		switch (i) {
 		case 0:
-			propulsion->stopMotors();
+			propulsion->setForwards(2,0);
 			servo.write(5);
 			i++;
 			break;
@@ -29,6 +27,10 @@ void CollisionAvoidance::run(Propulsion* propulsion, int speed)
 			break;
 		case 2:
 			distanceL = sonar.ping_cm();
+			if (distanceL == 0)
+			{
+				distanceL = 101;
+			}
 			i++;
 			break;
 		case 3:
@@ -40,31 +42,66 @@ void CollisionAvoidance::run(Propulsion* propulsion, int speed)
 			break;
 		case 5:
 			distanceR = sonar.ping_cm();
+			if (distanceR == 0)
+			{
+				distanceR = 101;
+			}
 			i++;
 			break;
 		case 6:
 			servo.write(90);
 			propulsion->reset();
-			propulsion->setBackwards(speed, 40);
+			i++;
+			break;
+		case 7:
+			i++;
+			break;
+		case 8:
+			if (flagVeryClose) {
+				propulsion->setBackwards(speed, 40);
+				if (!propulsion->drive())
+				{
+					i++;
+					propulsion->reset();
+				}
+				return;
+			}
+			else
+			{
+				i++;
+			}
+			break;
+		case 9:
+			if (distanceL >= distanceR)
+			{
+				//turn 120 degrees to left
+				propulsion->setLeftRotation(speed, 33);
+			}
+			else
+			{
+				propulsion->setRightRotation(speed, 33);
+			}
 			if (!propulsion->drive())
 			{
 				i++;
-				propulsion->stopMotors();
+				propulsion->reset();
 			}
-			break;
-		case 7:
-
-
+			return;
+		default:
+			i = 0;
+			propulsion->setForwards(speed, 0);
+			flagVeryClose = false;
+			flagClose = false;
 		}
 		
-	}
-	else if (flagClose)
-	{
-
 	}
 	else
 	{
 		unsigned int distance = sonar.ping_cm();
+		if (distance == 0)
+		{
+			distance = 101;
+		}
 		if (distance <= VeryClose)
 		{
 			flagVeryClose = true;
@@ -79,4 +116,10 @@ void CollisionAvoidance::run(Propulsion* propulsion, int speed)
 		}
 	}
 	propulsion->drive();
+}
+
+void CollisionAvoidance::initialize(int servoPin)
+{ // Can't use attach inside constructor
+	servo.attach(servoPin);
+	servo.write(90);
 }

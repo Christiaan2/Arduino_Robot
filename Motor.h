@@ -47,6 +47,8 @@ public:
 	int getPWM_val();
 
 	int getDistance();
+
+	void reset();
 };
 
 #endif

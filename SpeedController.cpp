@@ -13,7 +13,7 @@ int SpeedController::calcPidTerm(int setPoint, int curValue)
 {
 	if (setPoint <= 1)
 	{
-		prevOutput = 0;
+		reset();
 		return 0;
 	}
 	else
@@ -25,4 +25,10 @@ int SpeedController::calcPidTerm(int setPoint, int curValue)
 		prevOutput = output;
 		return output;
 	}
+}
+
+void SpeedController::reset()
+{
+	prevOutput = 0;
+	prevError = 0;
 }

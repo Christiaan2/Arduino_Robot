@@ -80,3 +80,11 @@ int Motor::getInitialSpeed()
 {
 	return initialSpeed;
 }
+
+void Motor::reset()
+{
+	encoder.reset();
+	speedController.reset();
+	setPWM_val(0);
+	speed = 0;
+}
