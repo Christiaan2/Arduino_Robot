@@ -5,7 +5,8 @@
 #include "Robot.h"
 
 Robot::Robot()
-	:timerDrive(1000 / DRIVEFREQ), oscilloscope(8), collisionAvoidance(11, 12, 100), progress(0), timerScoop(1000/SCOOPFREQ), timerACS(1000/ACSFREQ)
+	:timerDrive(1000 / DRIVEFREQ), oscilloscope(8), collisionAvoidance(11, 12, 180, &propulsion),
+	timerScoop(1000/SCOOPFREQ), timerACS(1000/ACSFREQ)
 {
 }
 
@@ -15,31 +16,23 @@ void Robot::run()
 
 	if (timerACS.fire())
 	{
-		int motorSpeed = analogRead(POTPIN) / 45;
-		if (motorSpeed <= 1)
-		{
-			propulsion.reset();
-			progress = 0;
-		}
-
-		collisionAvoidance.run(&propulsion, motorSpeed);
-
+		collisionAvoidance.run();
 		/*
 		if (progress == 0)
 		{
-			propulsion.setForwards(motorSpeed, 540);
+			propulsion.setForwards(540);
 		}
 		else if (progress == 1)
 		{
-			propulsion.setBackwards(motorSpeed, 540);
+			propulsion.setBackwards(540);
 		}
 		else if (progress == 2)
 		{
-			propulsion.setLeftRotation(motorSpeed, 100);
+			propulsion.setLeftRotation(100);
 		}
 		else if (progress == 3)
 		{
-			propulsion.setRightRotation(motorSpeed, 100);
+			propulsion.setRightRotation(100);
 		}
 		else
 		{
@@ -50,9 +43,20 @@ void Robot::run()
 
 	if (timerDrive.fire())
 	{
-		if (!propulsion.drive())
+		int motorSpeed = analogRead(POTPIN) / 45;
+		if (motorSpeed <= 1)
 		{
-			progress++;
+			propulsion.reset();
+			//propulsion.setProgress(0);
+		}
+		else if (propulsion.getAllowSpeedControll())
+		{
+			propulsion.setSpeed(motorSpeed);
+		}
+
+		if (propulsion.drive())
+		{
+			propulsion.incrementProgress();
 			propulsion.reset();
 		}
 	}
@@ -60,13 +64,13 @@ void Robot::run()
 	if (oscilloscope.getSampling_on() && timerScoop.fire())
 	{
 		noInterrupts();
-		oscilloscope.setSensorReading(0, int(propulsion.getPointerToMotorL()->getPointerToEncoder()->getEncoderTicks()));
-		oscilloscope.setSensorReading(1, int(propulsion.getPointerToMotorR()->getPointerToEncoder()->getEncoderTicks()));
-		oscilloscope.setSensorReading(2, propulsion.getPointerToMotorL()->getPWM_val());
-		oscilloscope.setSensorReading(3, propulsion.getPointerToMotorR()->getPWM_val());
-		oscilloscope.setSensorReading(4, propulsion.getPointerToMotorL()->getSpeed());
-		oscilloscope.setSensorReading(5, propulsion.getPointerToMotorL()->getPointerToEncoder()->getSpeed());
-		oscilloscope.setSensorReading(6, propulsion.getPointerToMotorR()->getPointerToEncoder()->getSpeed());
+		//oscilloscope.setSensorReading(0, int(propulsion.getPointerToMotorL()->getPointerToEncoder()->getEncoderTicks()));
+		//oscilloscope.setSensorReading(1, int(propulsion.getPointerToMotorR()->getPointerToEncoder()->getEncoderTicks()));
+		//oscilloscope.setSensorReading(2, propulsion.getPointerToMotorL()->getPWM_val());
+		//oscilloscope.setSensorReading(3, propulsion.getPointerToMotorR()->getPWM_val());
+		oscilloscope.setSensorReading(0, propulsion.getProgress());
+		//oscilloscope.setSensorReading(5, propulsion.getPointerToMotorL()->getPointerToEncoder()->getSpeed());
+		//oscilloscope.setSensorReading(6, propulsion.getPointerToMotorR()->getPointerToEncoder()->getSpeed());
 		oscilloscope.setTime();
 		interrupts();
 		oscilloscope.sendData();

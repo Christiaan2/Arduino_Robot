@@ -14,6 +14,8 @@ private:
 public:
 	Timer(int frequency);
 	bool fire();
+	void setTimer();
+	void setTimer(int frequency);
 	~Timer();
 };
 

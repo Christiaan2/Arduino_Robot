@@ -22,7 +22,6 @@ private:
 	Oscilloscope oscilloscope;
 	Propulsion propulsion;
 	CollisionAvoidance collisionAvoidance;
-	int progress;
 public:
 	Robot();
 	void run();

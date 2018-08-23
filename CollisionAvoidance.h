@@ -6,9 +6,11 @@
 #include <Servo.h>
 #include <NewPing.h>
 #include "Propulsion.h"
+#include "Timer.h"
 
 #define VeryClose 25
-#define Close 60
+#define Close 50
+#define FREQ  1000
 
 class CollisionAvoidance
 {
@@ -17,12 +19,16 @@ private:
 	 NewPing sonar;
 	 bool flagVeryClose;
 	 bool flagClose;
+	 Propulsion* propulsion;
+	 Timer timer;
 public:
-	CollisionAvoidance(int trigPin, int echoPin, int maxDistance);
+	CollisionAvoidance(int trigPin, int echoPin, int maxDistance, Propulsion* propulsion);
 
-	void run(Propulsion* propulsion, int speed);
+	void run();
 
 	void initialize(int servoPin);
+
+	void avoidObstical();
 };
 
 #endif

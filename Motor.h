@@ -15,7 +15,6 @@ private:
 	SpeedController speedController;
 	bool mDirection;  //True is forwards, false is backwards
 	int speed;   //Desired speed of the motor
-	int initialSpeed;
 	int distance;
 	int PWM_val;  //PWM value 
 public:
@@ -25,10 +24,6 @@ public:
 	void setDirection(bool direction); //true is forwards, false is backwards
 
 	void setSpeed(int speed);
-
-	void setInitialSpeed(int initialSpeed);
-
-	int getInitialSpeed();
 
 	void setDistance(int distance);
 

@@ -71,16 +71,6 @@ int Motor::getDistance()
 	return distance;
 }
 
-void Motor::setInitialSpeed(int initialSpeed)
-{
-	this->initialSpeed = initialSpeed;
-}
-
-int Motor::getInitialSpeed()
-{
-	return initialSpeed;
-}
-
 void Motor::reset()
 {
 	encoder.reset();

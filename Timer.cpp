@@ -24,6 +24,17 @@ bool Timer::fire()
 	}
 }
 
+void Timer::setTimer()
+{
+	prevTime = millis();
+}
+
+void Timer::setTimer(int frequency)
+{
+	this->frequency = frequency;
+	prevTime = millis();
+}
+
 Timer::~Timer()
 {
 }
