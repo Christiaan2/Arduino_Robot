@@ -17,7 +17,7 @@ void CollisionAvoidance::run()
 	}
 	else
 	{
-		unsigned int distance = sonar.convert_cm(sonar.ping_median());
+		unsigned int distance = sonar.ping_cm();
 		if (distance <= VeryClose && distance != 0)
 		{
 			flagVeryClose = true;
@@ -48,7 +48,7 @@ void CollisionAvoidance::avoidObstical()
 	case 1:
 		if (timer.fire())
 		{
-			distanceR = sonar.convert_cm(sonar.ping_median());
+			distanceR = sonar.ping_cm();
 			servo.write(5);
 			timer.setTimer(800);
 			propulsion->incrementProgress();
@@ -57,7 +57,7 @@ void CollisionAvoidance::avoidObstical()
 	case 2:
 		if (timer.fire())
 		{
-			distanceL = sonar.convert_cm(sonar.ping_median());
+			distanceL = sonar.ping_cm();
 			servo.write(90);
 			propulsion->reset();
 			timer.setTimer(800);
@@ -86,7 +86,7 @@ void CollisionAvoidance::avoidObstical()
 		}
 		break;
 	case 5:
-		timer.setTimer(100);
+		timer.setTimer(800);
 		propulsion->incrementProgress();
 		break;
 	default:
@@ -104,5 +104,4 @@ void CollisionAvoidance::initialize(int servoPin)
 { // Can't use attach inside constructor
 	servo.attach(servoPin);
 	servo.write(90);
-	delay(500);//TEMP
 }

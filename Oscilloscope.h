@@ -5,7 +5,7 @@
 #include "Arduino.h"
 #include "Button.h"
 
-#define NCHANNELS 1
+#define NCHANNELS 7
 #define BAUDRATE 115200
 #define LED 13
 
