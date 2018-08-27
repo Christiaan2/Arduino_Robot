@@ -7,7 +7,11 @@
 					D5: Speed left
 					D6: Speed right
 					D7: Direction right
-					D8: Button for oscilloscope
+					D8: Button for oscilloscope (with 10k pull down resistor)
+					D9: Servo motor (for stability place 100 uF capacitor over Vss and ground)
+					D11: Triggerpin sonar sensor
+					D12: Echopin sonar sensor
+					D13: Led for oscilloscope(build in Arduino Uno)
 					A5: Potentiometer to set speed
 * Functionality:	Drive constant speed, drive certain distance, avoid abstacles, speed can be adjusted using a potentiometer
 */
