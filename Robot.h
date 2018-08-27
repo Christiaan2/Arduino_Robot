@@ -10,7 +10,7 @@
 
 #define POTPIN 5  //Pin where potentiometer is connected to
 #define DRIVEFREQ 10  //Frequency of main loop
-#define SCOOPFREQ 100
+#define SCOOPFREQ 250
 #define ACSFREQ 25
 
 class Robot

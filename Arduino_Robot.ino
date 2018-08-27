@@ -9,7 +9,7 @@
 					D7: Direction right
 					D8: Button for oscilloscope
 					A5: Potentiometer to set speed
-* Functionality:	Drive constant speed, drive certain distance ...
+* Functionality:	Drive constant speed, drive certain distance, avoid abstacles, speed can be adjusted using a potentiometer
 */
 
 #include "Robot.h"
