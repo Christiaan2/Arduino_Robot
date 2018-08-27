@@ -10,9 +10,9 @@ Encoder::Encoder(int encoderPin)
 	pinMode(encoderPin, INPUT);
 }
 
-void Encoder::updateEncoder(bool direction)
+void Encoder::updateEncoder()
 {
-	direction ? encoderTicks++ : encoderTicks--;
+	encoderTicks++;
 }
 
 int Encoder::calcSpeed()
@@ -25,4 +25,28 @@ int Encoder::calcSpeed()
 int Encoder::getSpeed()
 {
 	return speed;
+}
+
+Encoder* Encoder::getPointer()
+{
+	return this;
+}
+
+void Encoder::reset()
+{
+	encoderTicks = 0;
+	prevEncoderTicks = 0;
+
+	//speed = 0;///NOT SURE ABOUT THIS
+	//Maybe reset also the speed
+}
+
+long Encoder::getEncoderTicks()
+{
+	return encoderTicks;
+}
+
+long Encoder::getPrevEncoderTicks()
+{
+	return prevEncoderTicks;
 }

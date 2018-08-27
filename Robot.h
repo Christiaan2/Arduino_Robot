@@ -4,22 +4,24 @@
 #define ROBOT_H
 #include "Arduino.h"
 #include "Timer.h"
-#include "Motor.h"
+#include "Propulsion.h"
 #include "Oscilloscope.h"
+#include "CollisionAvoidance.h"
 
 #define POTPIN 5  //Pin where potentiometer is connected to
-#define LOOPFREQ 10  //Frequency of main loop
+#define DRIVEFREQ 10  //Frequency of main loop
+#define SCOOPFREQ 100
+#define ACSFREQ 25
 
 class Robot
 {
 private:
-	Timer timer;
-	Motor motorL;
-	Motor motorR;
+	Timer timerDrive;
+	Timer timerScoop;
+	Timer timerACS;
 	Oscilloscope oscilloscope;
-
-	Motor* motorArray[2]; //TEMPERARY
-
+	Propulsion propulsion;
+	CollisionAvoidance collisionAvoidance;
 public:
 	Robot();
 	void run();

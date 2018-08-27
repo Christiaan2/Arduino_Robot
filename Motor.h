@@ -4,7 +4,7 @@
 #define MOTOR_H
 #include "Arduino.h"
 #include "Encoder.h"
-#include "Pid.h"
+#include "SpeedController.h"
 
 class Motor
 {
@@ -12,9 +12,10 @@ private:
 	int directionPin;
 	int enablePin;
 	Encoder encoder;
-	Pid pid;
+	SpeedController speedController;
 	bool mDirection;  //True is forwards, false is backwards
-	int speed_req;   //Desired speed of the motor
+	int speed;   //Desired speed of the motor
+	int distance;
 	int PWM_val;  //PWM value 
 public:
 	//enum for direction??
@@ -22,7 +23,9 @@ public:
 	
 	void setDirection(bool direction); //true is forwards, false is backwards
 
-	void handleEncoder();
+	void setSpeed(int speed);
+
+	void setDistance(int distance);
 
 	Motor* getPointer();
 
@@ -30,16 +33,17 @@ public:
 
 	void driveConstantSpeed(int speed_req);
 
-	int getSpeed_req();
+	int calcPWM_val();
 
 	int getSpeed();
 
+	Encoder* getPointerToEncoder();
+
 	int getPWM_val();
-	
-	//void driveDistance(int distance, int mSpeed)
-	//{
-		//Here was I
-	//}
+
+	int getDistance();
+
+	void reset();
 };
 
 #endif

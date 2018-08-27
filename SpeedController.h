@@ -1,10 +1,10 @@
-// Pid.h
+// SpeedController.h
 
-#ifndef PID_H
-#define PID_H
+#ifndef SPEEDCONTROLLER_H
+#define SPEEDCONTROLLER_H
 #include "Arduino.h"
 
-class Pid
+class SpeedController
 {
 private:
 	float Kp;
@@ -12,8 +12,9 @@ private:
 	float prevError;
 	int prevOutput;
 public:
-	Pid(float Kp, float Kd);
+	SpeedController(float Kp, float Kd);
 	int calcPidTerm(int setPoint, int curValue);
+	void reset();
 };
 
 
